@@ -1,6 +1,6 @@
 """
-Gera o artigo científico em formato Word (.docx) utilizando diretamente o arquivo
-modelo localizado em C:\\jones:
+Gera o artigo científico limpo (sem caracteres Markdown como * ou #) em formato
+Word (.docx) e Texto Puro (.txt), baseado diretamente no arquivo modelo de C:\\jones:
 'Simulação da Propagação de Células Infectadas por Autômatos Celulares em Ambiente Python.docx'
 """
 
@@ -19,8 +19,129 @@ ET.register_namespace("wp", "http://schemas.openxmlformats.org/drawingml/2006/wo
 ET.register_namespace("w14", "http://schemas.microsoft.com/office/word/2010/wordml")
 
 
+TITULO = (
+    "Simulação da Propagação de Pragas e Barreira de Contenção em Plantação de Uvas "
+    "por Autômatos Celulares em Ambiente Python"
+)
+
+AUTOR = "Edson José de Amorim Oliveira1"
+AFILIACAO = (
+    "1Departamento de Estatística e Informática\n"
+    "Universidade Federal Rural de Pernambuco – Recife, PE – Brasil"
+)
+EMAIL = "edson.amorim@ufrpe.br"
+
+RESUMO_CORPO = (
+    "As pragas agrícolas e doenças fúngicas em vinhedos representam um dos desafios mais "
+    "complexos para a viticultura contemporânea. A modelagem computacional in silico tem se "
+    "consolidado como uma ferramenta essencial para a compreensão dos mecanismos de disseminação "
+    "fitopatogênica e da contenção espacial de surtos em cultivos perenes. Este trabalho apresenta "
+    "o desenvolvimento de um modelo computacional baseado em Autômatos Celulares (AC), implementado "
+    "na linguagem Python e validado por Desenvolvimento Orientado a Testes (TDD com Pytest), para "
+    "analisar a dinâmica de contágio e propagação espacial de uma parreira contaminada sobre uma "
+    "população de parreiras sadias, bem como sua posterior recuperação atuando como barreira de "
+    "contenção. A simulação foi executada ao longo de 50 ciclos temporais, modelando as transições "
+    "de estado, a mecânica da vizinhança espacial de Moore e o impacto do tempo de recuperação das "
+    "parreiras na proteção do vinhedo. Os resultados incluem a análise quantitativa da curva "
+    "epidemiológica, suíte de testes automatizados e relatórios em formato .txt adaptados para "
+    "acessibilidade via leitores de tela."
+)
+
+SEC1_TITULO = "1. Introdução"
+SEC1_P1 = (
+    "A patogênese e a progressão de pragas e doenças fúngicas em plantações de uvas envolvem "
+    "processos biológicos e espaciais altamente complexos, nos quais parreiras contaminadas "
+    "interagem diretamente com o microambiente e com as videiras próximas ao seu redor. O estudo "
+    "da dinâmica espacial de contaminação no parreiral fornece informações valiosas sobre como "
+    "os focos iniciais de infecção se propagam para as plantas adjacentes e afetam a plantação "
+    "como um todo."
+)
+SEC1_P2 = (
+    "Nesse contexto, os Autômatos Celulares (AC) constituem um arcabouço matemático e "
+    "computacional discreto ideal para simular sistemas agrícolas em que regras locais de "
+    "proximidade determinam o comportamento emergente global. O objetivo deste trabalho é "
+    "formalizar um modelo de AC em Python capaz de simular a mecânica de contágio entre "
+    "parreiras contaminadas e sadias, avaliando o papel do raio de vizinhança de Moore, das "
+    "taxas de propagação, da validação automatizada via TDD com Pytest e da recuperação das "
+    "parreiras, que passam a atuar como barreira de contenção contra o avanço da praga."
+)
+
+SEC2_TITULO = "2. Detalhamento do Modelo Computacional"
+SEC2_P1 = (
+    "O modelo foi construído em Python e utiliza matrizes bidimensionais para representar a "
+    "estrutura espacial da plantação de uvas, contando com verificação automatizada de regras "
+    "por meio do framework Pytest (TDD). A grade espacial é definida como um reticulado discreto "
+    "de dimensões 50 por 50."
+)
+SEC2_P2 = (
+    "A grade abriga um total de 2.500 células (parreiras). Cada parreira localizada na posição "
+    "(i, j) no instante de tempo t possui um estado E(i, j, t) pertencente ao conjunto {S, I, R}, "
+    "baseado em uma adaptação do modelo epidemiológico SIR:"
+)
+SEC2_B1 = (
+    "Saudável / Suscetível (S): Parreira sadia, produtiva e suscetível à contaminação induzida "
+    "por parreiras próximas infectadas. Representada graficamente pelo caractere . no relatório impresso."
+)
+SEC2_B2 = (
+    "Contaminada / Infectada (I): Parreira infectada que expressa o vetor de contágio, capaz de "
+    "transmitir a praga para suas vizinhas diretas na vizinhança de Moore. Representada pelo caractere X."
+)
+SEC2_B3 = (
+    "Recuperada / Barreira de Contenção (R): Parreira que completou seu período infeccioso e "
+    "se recuperou, tornando-se imune e atuando como barreira mecânica e biológica de contenção "
+    "que impede a passagem da infecção para as parreiras sadias adjacentes. Representada pelo caractere O."
+)
+
+SEC3_TITULO = "3. Resultados e Discussão"
+SEC3_P1 = (
+    "Para avaliar a estabilidade do modelo computacional, a exatidão das regras verificadas "
+    "pelos testes em TDD (Pytest) e a dinâmica de propagação do contágio na grade celular da "
+    "plantação de uvas, foram executadas três replicações independentes da simulação sob as "
+    "mesmas condições iniciais, durante um horizonte temporal fixado em T = 50 ciclos."
+)
+SEC3_P2 = (
+    "Os dados empíricos obtidos revelaram uma convergência no comportamento dinâmico do sistema:"
+)
+SEC3_P3 = (
+    "Encerramento do surto: Em todas as simulações, o ciclo epidemiológico atingiu a extinção "
+    "(ausência de novas parreiras na condição Contaminada) entre os ciclos 21 e 24, consolidando "
+    "a barreira de contenção."
+)
+SEC3_B1 = "Ensaio 1: A propagação encerrou-se no 21º ciclo (341 parreiras saudáveis preservadas e 2.159 recuperadas em barreira)."
+SEC3_B2 = "Ensaio 2: A propagação encerrou-se no 22º ciclo (368 parreiras saudáveis preservadas e 2.132 recuperadas em barreira)."
+SEC3_B3 = "Ensaio 3: A propagação encerrou-se no 24º ciclo (388 parreiras saudáveis preservadas e 2.112 recuperadas em barreira)."
+SEC3_TAB_TITULO = "Resumo dos Ensaios da Simulação (T = 50 ciclos)"
+SEC3_P4 = (
+    "A interrupção da contaminação — ocorrida na primeira metade do tempo total estipulado — "
+    "evidencia o papel determinante da taxa de transição para o estado Recuperada / Barreira de "
+    "Contenção (R) e da vizinhança mecânica de Moore. As parreiras que transitaram para o estado "
+    "R passaram a atuar como barreiras físicas e topológicas no reticulado discreto, bloqueando "
+    "as vias de contágio das parreiras no estado Contaminada (I) e impedindo a infecção total da "
+    "população de parreiras Suscetíveis (S). Esse comportamento também foi comprovado "
+    "deterministicamente pela suíte de testes automatizados em Pytest, na qual um anel fechado "
+    "de parreiras recuperadas isola integralmente um foco central de infecção."
+)
+
+SEC4_TITULO = "4. Conclusão"
+SEC4_P1 = (
+    "O modelo desenvolvido em Python demonstrou eficácia ao representar a dinâmica de "
+    "contaminação entre parreiras próximas e sua posterior recuperação atuando como barreira "
+    "de contenção por meio da abordagem de Autômatos Celulares baseada na topologia de Moore. "
+    "A consistência observada nas replicações experimentais e nos testes automatizados via TDD "
+    "(Pytest) confirma que a transição para o estado recuperado limita significativamente a "
+    "expansão da praga na plantação de uvas, delimitando a duração da fase infecciosa ao "
+    "intervalo entre 21 e 24 ciclos."
+)
+SEC4_P2 = (
+    "Além do aporte teórico-computacional e dos gráficos gerados, a emissão de relatórios "
+    "tabulares e descritivos em formato de texto simples (.txt) assegura a acessibilidade do "
+    "software a leitores de tela, promovendo o uso inclusivo da ferramenta. Trabalhos futuros "
+    "poderão explorar a variação probabilística induzida pela ação do vento entre as fileiras "
+    "do vinhedo e diferentes protocolos de manejo preventivo."
+)
+
+
 def substituir_texto_paragrafo(p_elem: ET.Element, novo_texto: str, preservar_tab: bool = False) -> None:
-    """Substitui o texto de um parágrafo mantendo a formatação original do modelo."""
     runs = p_elem.findall(f"{{{NS_W}}}r")
     if not runs:
         r = ET.SubElement(p_elem, f"{{{NS_W}}}r")
@@ -47,7 +168,6 @@ def substituir_texto_paragrafo(p_elem: ET.Element, novo_texto: str, preservar_ta
 
 
 def preencher_resumo(p_elem: ET.Element, texto_corpo_resumo: str) -> None:
-    """Mantém o 'Resumo. ' em negrito/itálico e atualiza o texto do resumo."""
     runs = p_elem.findall(f"{{{NS_W}}}r")
     for r in runs:
         p_elem.remove(r)
@@ -79,7 +199,6 @@ def preencher_resumo(p_elem: ET.Element, texto_corpo_resumo: str) -> None:
 
 
 def atualizar_tabela_ensaios(tbl_elem: ET.Element) -> None:
-    """Atualiza os dados da tabela de Resumo dos Ensaios da Simulação (T = 50 ciclos)."""
     dados_linhas = [
         ["Ensaio", "Ciclo de Extinção da Infecção", "Duração do surto"],
         ["Ensaio 1", "Ciclo 21", "21 ciclos"],
@@ -99,10 +218,55 @@ def atualizar_tabela_ensaios(tbl_elem: ET.Element) -> None:
                 substituir_texto_paragrafo(p, dados_linhas[idx_l][idx_c], preservar_tab=False)
 
 
+def montar_texto_limpo() -> str:
+    """Retorna o texto integral do artigo completamente limpo, sem * ou #."""
+    blocos = [
+        TITULO,
+        "",
+        AUTOR,
+        AFILIACAO,
+        EMAIL,
+        "",
+        f"Resumo. {RESUMO_CORPO}",
+        "",
+        SEC1_TITULO,
+        SEC1_P1,
+        SEC1_P2,
+        "",
+        SEC2_TITULO,
+        SEC2_P1,
+        SEC2_P2,
+        f"- {SEC2_B1}",
+        f"- {SEC2_B2}",
+        f"- {SEC2_B3}",
+        "",
+        SEC3_TITULO,
+        SEC3_P1,
+        SEC3_P2,
+        SEC3_P3,
+        f"- {SEC3_B1}",
+        f"- {SEC3_B2}",
+        f"- {SEC3_B3}",
+        "",
+        SEC3_TAB_TITULO,
+        "Ensaio | Ciclo de Extinção da Infecção | Duração do surto",
+        "Ensaio 1 | Ciclo 21 | 21 ciclos",
+        "Ensaio 2 | Ciclo 22 | 22 ciclos",
+        "Ensaio 3 | Ciclo 24 | 24 ciclos",
+        "",
+        SEC3_P4,
+        "",
+        SEC4_TITULO,
+        SEC4_P1,
+        SEC4_P2,
+    ]
+    return "\n".join(blocos) + "\n"
+
+
 def gerar_docx_artigo() -> None:
-    arquivos_modelo = glob.glob(r"C:\jones\Simula*Python.docx")
+    arquivos_modelo = glob.glob(r"C:\jones\Simula*C*lulas*Python.docx")
     if not arquivos_modelo:
-        raise FileNotFoundError("Arquivo modelo .docx não encontrado em C:\\jones.")
+        arquivos_modelo = glob.glob(r"C:\jones\Simula*Python.docx")
     caminho_modelo = arquivos_modelo[0]
 
     nome_arquivo_saida = "Simulação da Propagação em Plantação de Uvas por Autômatos Celulares em Ambiente Python.docx"
@@ -122,137 +286,34 @@ def gerar_docx_artigo() -> None:
     body = root.find(f"{{{NS_W}}}body")
     filhos = list(body)
 
-    # Child 00: Título (Heading1)
-    substituir_texto_paragrafo(
-        filhos[0],
-        "Simulação da Propagação de Pragas e Barreira de Contenção em Plantação de Uvas por Autômatos Celulares em Ambiente Python",
-    )
+    substituir_texto_paragrafo(filhos[0], TITULO)
+    preencher_resumo(filhos[5], RESUMO_CORPO)
 
-    # Child 05: Resumo
-    preencher_resumo(
-        filhos[5],
-        "O controle fitossanitário em vinhedos representa um dos desafios mais complexos para a viticultura contemporânea. A modelagem computacional in silico tem se consolidado como uma ferramenta essencial para a compreensão dos mecanismos de disseminação fitopatogênica e da contenção de pragas agrícolas. Este trabalho apresenta o desenvolvimento de um modelo computacional baseado em Autômatos Celulares (AC), implementado na linguagem Python com desenvolvimento orientado a testes (TDD via Pytest), para analisar a dinâmica de contágio e propagação espacial de uma parreira contaminada sobre uma plantação de parreiras sadias e sua posterior recuperação atuando como barreira de contenção. A simulação foi executada ao longo de 50 ciclos temporais, modelando as transições de estado, a mecânica da vizinhança espacial de Moore e o impacto do tempo de recuperação das parreiras na formação da barreira. Os resultados incluem a análise quantitativa da curva epidemiológica, verificação automatizada por testes unitários e relatórios em formato .txt adaptados para acessibilidade via leitores de tela.",
-    )
+    substituir_texto_paragrafo(filhos[6], SEC1_TITULO)
+    substituir_texto_paragrafo(filhos[7], SEC1_P1, preservar_tab=True)
+    substituir_texto_paragrafo(filhos[8], SEC1_P2, preservar_tab=True)
 
-    # Child 06: 1. Introdução
-    substituir_texto_paragrafo(filhos[6], "1. Introdução")
+    substituir_texto_paragrafo(filhos[9], SEC2_TITULO)
+    substituir_texto_paragrafo(filhos[10], SEC2_P1, preservar_tab=True)
+    substituir_texto_paragrafo(filhos[11], SEC2_P2, preservar_tab=True)
+    substituir_texto_paragrafo(filhos[12], SEC2_B1)
+    substituir_texto_paragrafo(filhos[13], SEC2_B2)
+    substituir_texto_paragrafo(filhos[14], SEC2_B3)
 
-    # Child 07: Parágrafo 1 da Introdução
-    substituir_texto_paragrafo(
-        filhos[7],
-        "A disseminação de fitopatógenos e a progressão de pragas em plantações de uvas (Vitis vinifera) envolvem processos biológicos e espaciais altamente complexos, nos quais parreiras contaminadas interagem diretamente com o microambiente e com as videiras ao seu redor. O estudo da dinâmica espacial de contaminação entre parreiras próximas fornece insights valiosos sobre como focos locais de infecção se propagam e afetam o parreiral como um todo.",
-        preservar_tab=True,
-    )
-
-    # Child 08: Parágrafo 2 da Introdução
-    substituir_texto_paragrafo(
-        filhos[8],
-        "Nesse contexto, os Autômatos Celulares (AC) constituem um arcabouço matemático e computacional discreto ideal para simular sistemas agrícolas em que regras locais determinam o comportamento emergente global. O objetivo deste trabalho é formalizar um modelo de AC capaz de simular a mecânica de contágio entre parreiras contaminadas e sadias, avaliando o papel do raio de vizinhança, das taxas de propagação e da formação de recuperação fitossanitária atuando como barreira de contenção contra o avanço da praga na plantação.",
-        preservar_tab=True,
-    )
-
-    # Child 09: 2. Detalhamento do Modelo Computacional
-    substituir_texto_paragrafo(filhos[9], "2. Detalhamento do Modelo Computacional")
-
-    # Child 10: Parágrafo 1 do Modelo
-    substituir_texto_paragrafo(
-        filhos[10],
-        "O modelo foi construído em Python seguindo práticas de Desenvolvimento Orientado a Testes (TDD com o framework Pytest) e utiliza matrizes bidimensionais (biblioteca NumPy e visualização com Matplotlib/Tkinter) para representar a estrutura espacial da plantação de uvas. A grade espacial é definida como um reticulado discreto de dimensões 50 x 50.",
-        preservar_tab=True,
-    )
-
-    # Child 11: Parágrafo 2 do Modelo
-    substituir_texto_paragrafo(
-        filhos[11],
-        "A grade abriga um total de 2.500 células (parreiras de uva). Cada parreira localizada na posição (i, j) no instante de tempo t possui um estado E(i, j, t) pertencente a {S, I, R}, baseado em uma adaptação do modelo epidemiológico SIR:",
-        preservar_tab=True,
-    )
-
-    # Child 12: Bullet 1 - Saudável / Suscetível (S)
-    substituir_texto_paragrafo(
-        filhos[12],
-        "Saudável / Suscetível (S): Parreira sadia, produtiva e suscetível à contaminação induzida por parreiras adjacentes infectadas na vizinhança de Moore. Representada graficamente pelo caractere . no relatório impresso.",
-    )
-
-    # Child 13: Bullet 2 - Contaminada / Infectada (I)
-    substituir_texto_paragrafo(
-        filhos[13],
-        "Contaminada / Infectada (I): Parreira infectada que expressa o vetor de contágio, capaz de transmitir a praga para as parreiras vizinhas próximas durante seu ciclo infeccioso. Representada pelo caractere X.",
-    )
-
-    # Child 14: Bullet 3 - Recuperada / Barreira de Contenção (R)
-    substituir_texto_paragrafo(
-        filhos[14],
-        "Recuperada / Barreira de Contenção (R): Parreira que completou seu período infeccioso e recuperou-se, tornando-se imune e atuando como barreira mecânica e biológica de contenção que bloqueia o avanço da contaminação. Representada pelo caractere O.",
-    )
-
-    # Child 15: 3. Resultados e Discussão
-    substituir_texto_paragrafo(filhos[15], "3. Resultados e Discussão")
-
-    # Child 16: Parágrafo 1 de Resultados
-    substituir_texto_paragrafo(
-        filhos[16],
-        "Para avaliar a estabilidade do modelo computacional, a invariância das regras verificadas via TDD (Pytest) e a dinâmica de propagação do contágio e formação de barreira na plantação de uvas, foram executadas três replicações independentes da simulação sob as mesmas condições iniciais, durante um horizonte temporal fixado em T = 50 ciclos.",
-        preservar_tab=True,
-    )
-
-    # Child 17: Parágrafo 2 de Resultados
-    substituir_texto_paragrafo(
-        filhos[17],
-        "Os dados empíricos obtidos revelaram uma convergência no comportamento dinâmico do sistema:",
-        preservar_tab=True,
-    )
-
-    # Child 18: Encerramento do surto
-    substituir_texto_paragrafo(
-        filhos[18],
-        "Encerramento do surto: Em todas as simulações, o ciclo epidemiológico atingiu a extinção (ausência de novas parreiras na condição Contaminada) entre os ciclos 21 e 24.",
-    )
-
-    # Child 19, 20, 21: Bullets dos 3 Ensaios
-    substituir_texto_paragrafo(
-        filhos[19],
-        "Ensaio 1: A propagação encerrou-se no 21º ciclo (341 parreiras saudáveis preservadas e 2.159 recuperadas em barreira).",
-    )
-    substituir_texto_paragrafo(
-        filhos[20],
-        "Ensaio 2: A propagação encerrou-se no 22º ciclo (368 parreiras saudáveis preservadas e 2.132 recuperadas em barreira).",
-    )
-    substituir_texto_paragrafo(
-        filhos[21],
-        "Ensaio 3: A propagação encerrou-se no 24º ciclo (388 parreiras saudáveis preservadas e 2.112 recuperadas em barreira).",
-    )
-
-    # Child 22: Título da Tabela
-    substituir_texto_paragrafo(
-        filhos[22],
-        "Resumo dos Ensaios da Simulação (T = 50 ciclos)",
-    )
-
-    # Child 23: Tabela
+    substituir_texto_paragrafo(filhos[15], SEC3_TITULO)
+    substituir_texto_paragrafo(filhos[16], SEC3_P1, preservar_tab=True)
+    substituir_texto_paragrafo(filhos[17], SEC3_P2, preservar_tab=True)
+    substituir_texto_paragrafo(filhos[18], SEC3_P3)
+    substituir_texto_paragrafo(filhos[19], SEC3_B1)
+    substituir_texto_paragrafo(filhos[20], SEC3_B2)
+    substituir_texto_paragrafo(filhos[21], SEC3_B3)
+    substituir_texto_paragrafo(filhos[22], SEC3_TAB_TITULO)
     atualizar_tabela_ensaios(filhos[23])
+    substituir_texto_paragrafo(filhos[24], SEC3_P4, preservar_tab=True)
 
-    # Child 24: Discussão pós-tabela
-    substituir_texto_paragrafo(
-        filhos[24],
-        "A interrupção da contaminação — ocorrida na primeira metade do tempo total estipulado — evidencia o papel determinante da taxa de transição para o estado Recuperada / Barreira de Contenção (R) e da vizinhança espacial. As parreiras que transitaram para o estado R passaram a atuar como barreiras físicas e topológicas no reticulado discreto da plantação, bloqueando as vias de contágio das parreiras no estado Contaminada (I) e impedindo a infecção total da população de parreiras Suscetíveis (S).",
-        preservar_tab=True,
-    )
-
-    # Child 25: 4. Conclusão
-    substituir_texto_paragrafo(filhos[25], "4. Conclusão")
-
-    # Child 26: Parágrafo 1 da Conclusão
-    substituir_texto_paragrafo(
-        filhos[26],
-        "O modelo desenvolvido em Python e validado por testes automatizados em TDD (Pytest) demonstrou eficácia ao representar a dinâmica de contaminação entre parreiras de uva e sua posterior recuperação atuando como barreira de contenção por meio da abordagem de Autômatos Celulares baseada na topologia de Moore. A consistência observada nas replicações experimentais confirma que a transição para o estado recuperado/barreira limita significativamente a expansão da praga no vinhedo, delimitando a duração da fase infecciosa ao intervalo entre 21 e 24 ciclos.",
-    )
-
-    # Child 27: Parágrafo 2 da Conclusão
-    substituir_texto_paragrafo(
-        filhos[27],
-        "Além do aporte teórico-computacional e da visualização gráfica, a geração de relatórios descritivos e matriciais em formato de texto simples (.txt) assegura a acessibilidade do software a leitores de tela, promovendo o uso inclusivo da ferramenta. Trabalhos futuros poderão explorar a influência da direção do vento entre as fileiras do parreiral e diferentes estratégias de manejo fitossanitário preventivo.",
-    )
+    substituir_texto_paragrafo(filhos[25], SEC4_TITULO)
+    substituir_texto_paragrafo(filhos[26], SEC4_P1)
+    substituir_texto_paragrafo(filhos[27], SEC4_P2)
 
     novo_xml = ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
@@ -263,7 +324,11 @@ def gerar_docx_artigo() -> None:
 
     shutil.copy2(caminho_saida_projeto, caminho_saida_jones)
     shutil.copy2(caminho_saida_projeto, caminho_saida_downloads)
-    print(f"[OK] Artigo .docx gerado a partir de C:\\jones em:\n  1) {caminho_saida_projeto}\n  2) {caminho_saida_jones}\n  3) {caminho_saida_downloads}")
+
+    texto_limpo = montar_texto_limpo()
+    (Path(r"C:\automato_plantacao_uvas") / "artigo_limpo.txt").write_text(texto_limpo, encoding="utf-8")
+    (Path(r"C:\jones") / "artigo_limpo.txt").write_text(texto_limpo, encoding="utf-8")
+    print("[OK] Artigo limpo (.docx e .txt) gerado com sucesso sem caracteres * ou #.")
 
 
 if __name__ == "__main__":
