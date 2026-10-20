@@ -55,12 +55,24 @@ python simulacao_matplotlib.py
 python simulacao_matplotlib.py --salvar-imagem
 ```
 
+### 4. Execução do Modelo Matricial 50x50 e Relatórios Acessíveis (`index.py`)
+```bash
+python index.py
+```
+
+### 5. Testes Automatizados com TDD (`pytest`)
+A suíte de testes unitários e de comportamento ([`test_automato_uvas.py`](test_automato_uvas.py)) valida a conservação populacional ($S + I + R = 2.500$), a transição após `TEMPO_RECUPERACAO`, a imunidade e o bloqueio de contágio pelas parreiras recuperadas em barreira de contenção, além dos relatórios acessíveis:
+
+```bash
+python -m pytest -v
+```
+
 ---
 
 ## 📦 Requisitos
 
 - Python 3.10+
-- `matplotlib` e `numpy` (opcionais, apenas para `simulacao_matplotlib.py`; a interface principal `automato_uvas.py` utiliza apenas bibliotecas nativas do Python: `tkinter`).
+- `numpy`, `matplotlib` e `pytest`
 
 ```bash
 pip install -r requirements.txt

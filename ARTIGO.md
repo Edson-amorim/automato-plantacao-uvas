@@ -8,7 +8,7 @@ Universidade Federal Rural de Pernambuco – Recife, PE – Brasil
 
 ---
 
-**Resumo.** *O controle fitossanitário em vinhedos representa um dos desafios mais complexos para a viticultura contemporânea. A modelagem computacional in silico tem se consolidado como uma ferramenta essencial para a compreensão dos mecanismos de disseminação fitopatogênica e da contenção de pragas agrícolas. Este trabalho apresenta o desenvolvimento de um modelo computacional baseado em Autômatos Celulares (AC), implementado na linguagem Python, para analisar a dinâmica de contágio e propagação espacial de uma parreira contaminada sobre uma plantação de parreiras sadias e sua posterior recuperação atuando como barreira de contenção. A simulação foi executada ao longo de 50 ciclos temporais, modelando as transições de estado, a mecânica da vizinhança espacial de Moore e o impacto do tempo de recuperação das parreiras na formação da barreira. Os resultados incluem a análise quantitativa da curva epidemiológica e relatórios em formato `.txt` adaptados para acessibilidade via leitores de tela.*
+**Resumo.** *O controle fitossanitário em vinhedos representa um dos desafios mais complexos para a viticultura contemporânea. A modelagem computacional in silico tem se consolidado como uma ferramenta essencial para a compreensão dos mecanismos de disseminação fitopatogênica e da contenção de pragas agrícolas. Este trabalho apresenta o desenvolvimento de um modelo computacional baseado em Autômatos Celulares (AC), implementado na linguagem Python com desenvolvimento orientado a testes (TDD via Pytest), para analisar a dinâmica de contágio e propagação espacial de uma parreira contaminada sobre uma plantação de parreiras sadias e sua posterior recuperação atuando como barreira de contenção. A simulação foi executada ao longo de 50 ciclos temporais, modelando as transições de estado, a mecânica da vizinhança espacial de Moore e o impacto do tempo de recuperação das parreiras na formação da barreira. Os resultados incluem a análise quantitativa da curva epidemiológica, verificação automatizada por testes unitários e relatórios em formato `.txt` adaptados para acessibilidade via leitores de tela.*
 
 ---
 
@@ -22,7 +22,7 @@ Nesse contexto, os Autômatos Celulares (AC) constituem um arcabouço matemátic
 
 ## 2. Detalhamento do Modelo Computacional
 
-O modelo foi construído em Python e utiliza matrizes bidimensionais (biblioteca NumPy e visualização com Matplotlib/Tkinter) para representar a estrutura espacial da plantação de uvas. A grade espacial é definida como um reticulado discreto de dimensões $50 \times 50$.
+O modelo foi construído em Python seguindo práticas de Desenvolvimento Orientado a Testes (TDD com o framework `pytest`) e utiliza matrizes bidimensionais (biblioteca NumPy e visualização com Matplotlib/Tkinter) para representar a estrutura espacial da plantação de uvas. A grade espacial é definida como um reticulado discreto de dimensões $50 \times 50$.
 
 A grade abriga um total de $2.500$ células (parreiras de uva). Cada parreira localizada na posição $(i, j)$ no instante de tempo $t$ possui um estado $E_{i,j}(t) \in \{S, I, R\}$, baseado em uma adaptação do modelo epidemiológico SIR:
 
@@ -34,7 +34,7 @@ A grade abriga um total de $2.500$ células (parreiras de uva). Cada parreira lo
 
 ## 3. Resultados e Discussão
 
-Para avaliar a estabilidade do modelo computacional e a dinâmica de propagação do contágio e formação de barreira na plantação de uvas, foram executadas três replicações independentes da simulação sob as mesmas condições iniciais, durante um horizonte temporal fixado em $T = 50$ ciclos.
+Para avaliar a estabilidade do modelo computacional, a invariância das regras verificadas via TDD (`pytest`) e a dinâmica de propagação do contágio e formação de barreira na plantação de uvas, foram executadas três replicações independentes da simulação sob as mesmas condições iniciais, durante um horizonte temporal fixado em $T = 50$ ciclos.
 
 Os dados empíricos obtidos revelaram uma convergência no comportamento dinâmico do sistema:
 
@@ -58,6 +58,6 @@ A interrupção da contaminação — ocorrida na primeira metade do tempo total
 
 ## 4. Conclusão
 
-O modelo desenvolvido em Python demonstrou eficácia ao representar a dinâmica de contaminação entre parreiras de uva e sua posterior recuperação atuando como barreira de contenção por meio da abordagem de Autômatos Celulares baseada na topologia de Moore. A consistência observada nas replicações experimentais confirma que a transição para o estado recuperado/barreira limita significativamente a expansão da praga no vinhedo, delimitando a duração da fase infecciosa ao intervalo entre $21$ e $24$ ciclos.
+O modelo desenvolvido em Python e validado por testes automatizados em TDD (`pytest`) demonstrou eficácia ao representar a dinâmica de contaminação entre parreiras de uva e sua posterior recuperação atuando como barreira de contenção por meio da abordagem de Autômatos Celulares baseada na topologia de Moore. A consistência observada nas replicações experimentais confirma que a transição para o estado recuperado/barreira limita significativamente a expansão da praga no vinhedo, delimitando a duração da fase infecciosa ao intervalo entre $21$ e $24$ ciclos.
 
 Além do aporte teórico-computacional e da visualização gráfica, a geração de relatórios descritivos e matriciais em formato de texto simples (`.txt`) assegura a acessibilidade do software a leitores de tela, promovendo o uso inclusivo da ferramenta. Trabalhos futuros poderão explorar a influência da direção do vento entre as fileiras do parreiral e diferentes estratégias de manejo fitossanitário preventivo.
