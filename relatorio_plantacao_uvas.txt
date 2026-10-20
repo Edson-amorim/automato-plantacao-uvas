@@ -1,0 +1,171 @@
+============================================================================
+RELATORIO ACESSIVEL DE SIMULACAO - AUTOMATO CELULAR (PLANTACAO DE UVAS)
+============================================================================
+Dimensoes da Grade (Reticulado): 20 x 20 (400 parreiras)
+Horizonte Temporal estipulado (T): 50 ciclos
+Topologia de Vizinhanca: Vizinhanca de Moore (8 parreiras adjacentes)
+Legenda Acessivel de Estados:
+  [.] Saudavel / Suscetivel (S) : Parreira sadia e produtiva
+  [X] Contaminada / Infectada (I): Parreira infectada que transmite a praga
+  [O] Recuperada / Barreira (R) : Parreira recuperada que atua como barreira de contencao
+----------------------------------------------------------------------------
+
+>>> ENSAIO 1 (Semente Aleatoria = 32) <<<
+Ciclo | Saudaveis (S) | Contaminadas (I) | Recuperadas/Barreira (R)
+--------------------------------------------------------------------
+  00  |      370      |       002        |           028
+  01  |      368      |       004        |           028
+  02  |      362      |       008        |           030
+  03  |      355      |       013        |           032
+  04  |      345      |       017        |           038
+  05  |      332      |       023        |           045
+  06  |      319      |       026        |           055
+  07  |      309      |       023        |           068
+  08  |      295      |       024        |           081
+  09  |      274      |       035        |           091
+  10  |      258      |       037        |           105
+  11  |      247      |       027        |           126
+  12  |      237      |       021        |           142
+  13  |      228      |       019        |           153
+  14  |      227      |       010        |           163
+  15  |      224      |       004        |           172
+  16  |      222      |       005        |           173
+  17  |      222      |       002        |           176
+  18  |      221      |       001        |           178
+  19  |      221      |       001        |           178
+  20  |      221      |       000        |           179
+
+Encerramento do surto no Ensaio 1: Ciclo 20 (Parreiras Saudaveis preservadas: 221, Barreira formada: 179)
+Mapa Espacial Final da Plantacao (Ensaio 1 - Ciclo 20):
+  . . . O . . O . . . . . . . . . . . . .
+  . . . . O O O O . . . . . . . . . . . .
+  . . . . O O O O . . O O . . . . . . . .
+  . . O O O O O O O . O O . . . . . . . .
+  . . O O O O O O O O O O . . . . . . . .
+  . . . O O . O O . O O O . . . . . . . .
+  O . O O O O O O O O O O . . . . . . . .
+  O O O O O . O O O O O O . . . . . . . .
+  . O O O O O O O O . O O . . . . . . . .
+  O O . O O O O O . . O O . . . . . . . .
+  O . O O O O O O . . . . . . . . . . . .
+  . . . O O O O O O O . . . . . . . . . .
+  . . O O O O . O O O O O . . . . . . . .
+  . O O O O O O O O O O O . . . . . . . .
+  . O O O O O O O O O O O . . . . . . . .
+  . O O O O O O O O O O O . . . . . . . .
+  O O O O O O O O O O O O . . . . . . . .
+  O . O O O O O O O O O O . . . . . . . .
+  O . O O O O O O O O O O . . . . . . . .
+  . O O O O O O O O . O O . . . . . . . .
+
+>>> ENSAIO 2 (Semente Aleatoria = 1) <<<
+Ciclo | Saudaveis (S) | Contaminadas (I) | Recuperadas/Barreira (R)
+--------------------------------------------------------------------
+  00  |      370      |       002        |           028
+  01  |      366      |       006        |           028
+  02  |      361      |       009        |           030
+  03  |      355      |       011        |           034
+  04  |      350      |       011        |           039
+  05  |      346      |       009        |           045
+  06  |      342      |       008        |           050
+  07  |      337      |       009        |           054
+  08  |      332      |       010        |           058
+  09  |      325      |       012        |           063
+  10  |      318      |       014        |           068
+  11  |      307      |       018        |           075
+  12  |      294      |       024        |           082
+  13  |      282      |       025        |           093
+  14  |      273      |       021        |           106
+  15  |      261      |       021        |           118
+  16  |      252      |       021        |           127
+  17  |      246      |       015        |           139
+  18  |      243      |       009        |           148
+  19  |      242      |       004        |           154
+  20  |      241      |       002        |           157
+  21  |      241      |       001        |           158
+  22  |      241      |       000        |           159
+
+Encerramento do surto no Ensaio 2: Ciclo 22 (Parreiras Saudaveis preservadas: 241, Barreira formada: 159)
+Mapa Espacial Final da Plantacao (Ensaio 2 - Ciclo 22):
+  . . . . . . O O . . . . . . . . . . . .
+  . . . . . O O O O O . . . . . . . . . .
+  . . . . O O O O O O O O . . . . . . . .
+  . . . . . O O O . O O O . . . . . . . .
+  . . . . . O O O O O O O . . . . . . . .
+  . . . . O O O . . . O O . . . . . . . .
+  . . . O O O O O O . O O . . . . . . . .
+  . . . O O O O O O O O O . . . . . . . .
+  . . . O O O O O O O O O . . . . . . . .
+  . O O O O O . . . O O O . . . . . . . .
+  O O O O O O O . . O O . . . . . . . . .
+  O O O . O O O O O . . . . . . . . . . .
+  O O O O . O O O . O O O . . . . . . . .
+  . O O . O O O O O O O O . . . . . . . .
+  . O O . O O O O O . O O . . . . . . . .
+  O O O O O O O O O . O O . . . . . . . .
+  . O O O O O O O . . O O . . . . . . . .
+  . . O O O O O O O O O O . . . . . . . .
+  . . O O O O O O O O . . . . . . . . . .
+  . . O O O O O O O O . . . . . . . . . .
+
+>>> ENSAIO 3 (Semente Aleatoria = 2) <<<
+Ciclo | Saudaveis (S) | Contaminadas (I) | Recuperadas/Barreira (R)
+--------------------------------------------------------------------
+  00  |      370      |       002        |           028
+  01  |      368      |       004        |           028
+  02  |      365      |       005        |           030
+  03  |      363      |       005        |           032
+  04  |      362      |       003        |           035
+  05  |      361      |       002        |           037
+  06  |      359      |       003        |           038
+  07  |      356      |       005        |           039
+  08  |      349      |       010        |           041
+  09  |      342      |       014        |           044
+  10  |      331      |       018        |           051
+  11  |      322      |       020        |           058
+  12  |      316      |       015        |           069
+  13  |      307      |       015        |           078
+  14  |      299      |       017        |           084
+  15  |      293      |       014        |           093
+  16  |      289      |       010        |           101
+  17  |      282      |       011        |           107
+  18  |      277      |       012        |           111
+  19  |      274      |       008        |           118
+  20  |      271      |       006        |           123
+  21  |      269      |       005        |           126
+  22  |      267      |       004        |           129
+  23  |      267      |       002        |           131
+  24  |      267      |       000        |           133
+
+Encerramento do surto no Ensaio 3: Ciclo 24 (Parreiras Saudaveis preservadas: 267, Barreira formada: 133)
+Mapa Espacial Final da Plantacao (Ensaio 3 - Ciclo 24):
+  O . O . . . O . . . . . . . . . . . . .
+  O O O O . . . O . . . . . . . . . . . .
+  O O O O O O O O . . O O . . . . . . . .
+  O O O O O O O O O . O O . . . . . . . .
+  O . O O O O O O O O O O . . . . . . . .
+  O O O O O O O O O O O O . . . . . . . .
+  O O O O O O O O O O O O . . . . . . . .
+  O O O O O O O O O O O O . . . . . . . .
+  O O O O O O O O O O O O . . . . . . . .
+  O O O O . . O O O . O O . . . . . . . .
+  O O O . O O . . . . . . . . . . . . . .
+  O O O O O O . . . . . . . . . . . . . .
+  . O O O O O . . . . O O . . . . . . . .
+  . . . O O O O . . . O O . . . . . . . .
+  . . . . O O O . . . O O . . . . . . . .
+  . . . . O . . . . . O O . . . . . . . .
+  . . . . . . . . . . O O . . . . . . . .
+  . . . . . . . . . . O O . . . . . . . .
+  . . . . . . . . . . . . . . . . . . . .
+  . . . . . . . . . . . . . . . . . . . .
+
+============================================================================
+RESUMO DOS ENSAIOS DA SIMULACAO (T = 50 CICLOS)
+============================================================================
+Ensaio   | Ciclo de Extincao | Duracao do Surto | Saudaveis (S) | Barreira (R)
+----------------------------------------------------------------------------
+Ensaio 1 | Ciclo 20          | 20 ciclos        | 221           | 179
+Ensaio 2 | Ciclo 22          | 22 ciclos        | 241           | 159
+Ensaio 3 | Ciclo 24          | 24 ciclos        | 267           | 133
+============================================================================

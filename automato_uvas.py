@@ -529,6 +529,102 @@ def iniciar_interface_grafica() -> None:
     root.mainloop()
 
 
+def gerar_relatorio_acessivel_txt(
+    caminho_arquivo: str = "relatorio_plantacao_uvas.txt",
+    linhas: int = 20,
+    colunas: int = 20,
+    horizonte_t: int = 50,
+) -> None:
+    """
+    Executa 3 ensaios independentes da simulação em horizonte T=50 ciclos e
+    gera um relatório tabular e visual em texto simples (.txt) adaptado para
+    acessibilidade via leitores de tela (utilizando '.', 'X' e 'O').
+    """
+    simbolos_txt = {
+        EstadoParreira.VAZIO: " ",
+        EstadoParreira.SAUDAVEL: ".",
+        EstadoParreira.CONTAMINADA: "X",
+        EstadoParreira.BARREIRA_RECUPERADA: "O",
+    }
+
+    sementes_ensaios = [32, 1, 2]
+    linhas_relatorio = []
+    linhas_relatorio.append("=" * 76)
+    linhas_relatorio.append(
+        "RELATORIO ACESSIVEL DE SIMULACAO - AUTOMATO CELULAR (PLANTACAO DE UVAS)"
+    )
+    linhas_relatorio.append("=" * 76)
+    linhas_relatorio.append(f"Dimensoes da Grade (Reticulado): {linhas} x {colunas} ({linhas * colunas} parreiras)")
+    linhas_relatorio.append(f"Horizonte Temporal estipulado (T): {horizonte_t} ciclos")
+    linhas_relatorio.append("Topologia de Vizinhanca: Vizinhanca de Moore (8 parreiras adjacentes)")
+    linhas_relatorio.append("Legenda Acessivel de Estados:")
+    linhas_relatorio.append("  [.] Saudavel / Suscetivel (S) : Parreira sadia e produtiva")
+    linhas_relatorio.append("  [X] Contaminada / Infectada (I): Parreira infectada que transmite a praga")
+    linhas_relatorio.append("  [O] Recuperada / Barreira (R) : Parreira recuperada que atua como barreira de contencao")
+    linhas_relatorio.append("-" * 76)
+
+    resumo_ensaios = []
+
+    for idx_ensaio, semente in enumerate(sementes_ensaios, start=1):
+        automato = AutomatoPlantacaoUvas(
+            linhas=linhas,
+            colunas=colunas,
+            prob_contagio=0.16,
+            tempo_recuperacao=2,
+            vizinhanca_moore=True,
+            semente=semente,
+        )
+        automato.reiniciar_plantacao("foco_com_barreira_parcial")
+
+        ciclo_extincao = horizonte_t
+        linhas_relatorio.append(f"\n>>> ENSAIO {idx_ensaio} (Semente Aleatoria = {semente}) <<<")
+        linhas_relatorio.append("Ciclo | Saudaveis (S) | Contaminadas (I) | Recuperadas/Barreira (R)")
+        linhas_relatorio.append("-" * 68)
+
+        s0, c0, r0 = automato.contar_estados()
+        linhas_relatorio.append(f"  {0:02d}  |      {s0:03d}      |       {c0:03d}        |           {r0:03d}")
+
+        for ciclo in range(1, horizonte_t + 1):
+            ainda_ativo = automato.avancar_geracao()
+            s, c, r = automato.contar_estados()
+            linhas_relatorio.append(f"  {ciclo:02d}  |      {s:03d}      |       {c:03d}        |           {r:03d}")
+            if not ainda_ativo:
+                ciclo_extincao = ciclo
+                break
+
+        s_fin, c_fin, r_fin = automato.contar_estados()
+        resumo_ensaios.append((idx_ensaio, ciclo_extincao, s_fin, c_fin, r_fin))
+
+        linhas_relatorio.append(
+            f"\nEncerramento do surto no Ensaio {idx_ensaio}: Ciclo {ciclo_extincao} "
+            f"(Parreiras Saudaveis preservadas: {s_fin}, Barreira formada: {r_fin})"
+        )
+        linhas_relatorio.append(f"Mapa Espacial Final da Plantacao (Ensaio {idx_ensaio} - Ciclo {ciclo_extincao}):")
+        for l in range(automato.linhas):
+            linha_mapa = " ".join(simbolos_txt[automato.grade[l][c]] for c in range(automato.colunas))
+            linhas_relatorio.append("  " + linha_mapa)
+
+    linhas_relatorio.append("\n" + "=" * 76)
+    linhas_relatorio.append(f"RESUMO DOS ENSAIOS DA SIMULACAO (T = {horizonte_t} CICLOS)")
+    linhas_relatorio.append("=" * 76)
+    linhas_relatorio.append(
+        "Ensaio   | Ciclo de Extincao | Duracao do Surto | Saudaveis (S) | Barreira (R)"
+    )
+    linhas_relatorio.append("-" * 76)
+    for ensaio_id, extincao, s_fin, _c_fin, r_fin in resumo_ensaios:
+        linhas_relatorio.append(
+            f"Ensaio {ensaio_id} | Ciclo {extincao:02d}          | {extincao:02d} ciclos        | {s_fin:03d}           | {r_fin:03d}"
+        )
+    linhas_relatorio.append("=" * 76)
+
+    with open(caminho_arquivo, "w", encoding="utf-8") as f:
+        f.write("\n".join(linhas_relatorio) + "\n")
+
+    print(f"Relatório acessível gerado em: {caminho_arquivo}")
+    for ensaio_id, extincao, s_fin, _c_fin, r_fin in resumo_ensaios:
+        print(f"  Ensaio {ensaio_id}: Extinção no Ciclo {extincao} | Saudáveis: {s_fin} | Barreira: {r_fin}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Autômato Celular de Plantação de Uvas com Contaminação e Barreira de Contenção"
@@ -539,6 +635,11 @@ if __name__ == "__main__":
         help="Executa a simulação no modo texto (terminal) em vez de abrir a janela gráfica.",
     )
     parser.add_argument(
+        "--relatorio",
+        action="store_true",
+        help="Executa os 3 ensaios (T=50) e gera o relatório .txt acessível para leitores de tela.",
+    )
+    parser.add_argument(
         "--passos",
         type=int,
         default=25,
@@ -546,7 +647,10 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    if args.cli:
+    if args.relatorio:
+        gerar_relatorio_acessivel_txt()
+    elif args.cli:
         executar_modo_terminal(passos=args.passos, intervalo=0.05)
     else:
         iniciar_interface_grafica()
+
